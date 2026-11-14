@@ -1,0 +1,120 @@
+/* ---------- Color and type tokens ---------- */
+:root {
+  --basalt: #1b1512;      /* page background */
+  --slate: #2a201c;       /* panels and cards */
+  --ash: #eadfd3;         /* main text */
+  --muted: #a89a8c;       /* secondary text */
+  --heat-1: #e6b94a;      /* magnitude below 4 */
+  --heat-2: #f07a22;      /* 4 to 4.9 */
+  --heat-3: #d62f1f;      /* 5 to 5.9 */
+  --heat-4: #9b1b3a;      /* 6 and above */
+  --error: #ff6b5a;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--basalt);
+  color: var(--ash);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1.5;
+}
+
+/* ---------- Header ---------- */
+.top { padding: 2rem 1.25rem 1rem; max-width: 1100px; margin: 0 auto; }
+.top h1 { margin: 0; font-size: clamp(2rem, 6vw, 3.4rem); letter-spacing: -0.02em; color: var(--heat-2); }
+.top p { margin: .4rem 0 0; color: var(--muted); max-width: 60ch; }
+
+/* ---------- Layout: form beside results on wide screens ---------- */
+.layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1rem 1.25rem 3rem;
+}
+
+/* ---------- Form ---------- */
+.panel { background: var(--slate); padding: 1.25rem; border-radius: 6px; align-self: start; display: grid; gap: .9rem; }
+label { display: grid; gap: .3rem; font-size: .95rem; color: var(--muted); }
+select, input {
+  background: var(--basalt);
+  color: var(--ash);
+  border: 1px solid #4a3b33;
+  border-radius: 4px;
+  padding: .55rem;
+  font: inherit;
+}
+select:focus-visible, input:focus-visible, button:focus-visible { outline: 2px solid var(--heat-1); outline-offset: 2px; }
+input.invalid { border-color: var(--error); }
+.field-hint { margin: -.5rem 0 0; min-height: 1.1em; font-size: .85rem; color: var(--error); }
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+  border-radius: 4px;
+  padding: .65rem 1rem;
+  background: var(--heat-2);
+  color: #1b1512;
+  font-weight: bold;
+}
+button:hover { background: var(--heat-1); }
+
+/* ---------- Messages ---------- */
+.message { margin: 0 0 1rem; padding: .7rem .9rem; border-radius: 4px; background: var(--slate); }
+.message.error { color: var(--error); border-left: 4px solid var(--error); }
+.message.info { color: var(--ash); border-left: 4px solid var(--heat-1); }
+.message.ok { border-left: 4px solid var(--heat-2); }
+
+#toolbar { margin-bottom: .75rem; }
+#toolbar button { background: transparent; color: var(--ash); border: 1px solid var(--muted); }
+#toolbar button:hover { border-color: var(--heat-3); color: var(--heat-3); background: transparent; }
+
+/* ---------- Earthquake cards ---------- */
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+
+.card {
+  position: relative;
+  background: var(--slate);
+  border-left: 8px solid var(--heat-1);
+  border-radius: 4px;
+  padding: 1rem 1rem 1rem 1.1rem;
+  transition: transform .15s;
+}
+.card:hover { transform: translateY(-3px); }
+.card.heat-1 { border-left-color: var(--heat-1); }
+.card.heat-2 { border-left-color: var(--heat-2); }
+.card.heat-3 { border-left-color: var(--heat-3); }
+.card.heat-4 { border-left-color: var(--heat-4); }
+
+.mag { font-size: 2.6rem; font-weight: bold; line-height: 1; }
+.heat-1 .mag { color: var(--heat-1); }
+.heat-2 .mag { color: var(--heat-2); }
+.heat-3 .mag { color: var(--heat-3); }
+.heat-4 .mag { color: #e0567a; }
+
+.card h3 { margin: .4rem 0 .6rem; font-size: 1.05rem; padding-right: 1.5rem; }
+.card dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: .15rem .6rem; font-size: .9rem; }
+.card dt { color: var(--muted); }
+.card dd { margin: 0; }
+.card a { color: var(--heat-1); font-size: .9rem; display: inline-block; margin-top: .6rem; }
+
+.remove {
+  position: absolute; top: .4rem; right: .4rem;
+  width: 1.8rem; height: 1.8rem; padding: 0;
+  background: transparent; color: var(--muted); font-size: 1rem;
+}
+.remove:hover { background: transparent; color: var(--error); }
+
+.coords { color: var(--muted); font-size: .9rem; min-height: 1.4em; margin-top: 1rem; }
+
+/* ---------- Mobile: stack form above results ---------- */
+@media (max-width: 760px) {
+  .layout { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+}

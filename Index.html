@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quake Tracker</title>
+  <!-- All styling lives in Style.css (same folder as this file) -->
+  <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+  <header class="top">
+    <h1>Quake Tracker</h1>
+    <p>Recent earthquakes from the USGS catalog. Pick a strength, region and time window.</p>
+  </header>
+
+  <main class="layout">
+    <!-- Search form: every field changes a parameter of the API request -->
+    <form id="search-form" class="panel" novalidate>
+      <label>Minimum magnitude
+        <select id="mag">
+          <option value="2">2.0 and above</option>
+          <option value="4" selected>4.0 and above</option>
+          <option value="5">5.0 and above</option>
+          <option value="6">6.0 and above</option>
+        </select>
+      </label>
+
+      <label>Time window
+        <select id="period">
+          <option value="1">Last 24 hours</option>
+          <option value="7" selected>Last 7 days</option>
+          <option value="30">Last 30 days</option>
+        </select>
+      </label>
+
+      <label>Region
+        <select id="region">
+          <option value="world">Whole world</option>
+          <option value="arabia">Arabian Peninsula and Red Sea</option>
+          <option value="japan">Japan</option>
+          <option value="med">Mediterranean and Turkey</option>
+        </select>
+      </label>
+
+      <label>Number of results (1 to 50)
+        <input id="limit" type="number" value="10" min="1" max="50">
+      </label>
+      <p id="limit-hint" class="field-hint"></p>
+
+      <button type="submit" id="search-btn">Find earthquakes</button>
+    </form>
+
+    <section class="results">
+      <!-- The "Clear all" button is created and removed by JavaScript -->
+      <div id="toolbar"></div>
+      <p id="message" class="message info" role="status"></p>
+      <div id="cards" class="cards"></div>
+      <p id="coords" class="coords"></p>
+    </section>
+  </main>
+
+  <!-- All logic lives in Script.js (same folder as this file) -->
+  <script src="Script.js"></script>
+</body>
+</html>
